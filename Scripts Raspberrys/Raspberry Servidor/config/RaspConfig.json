@@ -1,0 +1,1 @@
+[{"nombre":"Prova","tipodesensor":"Temperatura","intervalodetiempo":"Cada minuto","funciónmodbuslectura":"Function 01 (Read Coil Status)","dirección":"00","nºregistros":"1","comentarios":""}]

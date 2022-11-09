@@ -50,7 +50,7 @@ def prepare_data():
     return str(JSON_a_enviar)
 
 def get_data_from_web(diccionari):
-    f = open("config/RaspConfig.json","r")
+    f = open("./config/RaspConfig.json","r")
     diccionari =json.load(f)
     return diccionari
 

@@ -1,11 +1,11 @@
 import paho.mqtt.client as mqtt 
 import json
 import configparser
-
-import MODBUS_library as MODBUS
+from queue import Queue
+#import Control_library as Control
 
 interval= 5
-
+q = Queue()
 
 def setup():
     config_obj = configparser.ConfigParser()
@@ -18,6 +18,12 @@ def setup():
     broker_address = MQTT_config["broker_address"]
     publish_topic = MQTT_config["publish_topic"]
     subscribe_topic = MQTT_config["subscribe_topic"]
+    
+    MQTT_client = connect()
+    MQTT_client.subscribe(subscribe_topic)
+    MQTT_client.loop_start()
+        
+    return MQTT_client
     
 def connect():
     client = mqtt.Client(device)
@@ -52,14 +58,14 @@ def prepare_data():
 
 def get_data_from_sensors(diccionari):
     diccionari={
-        "Nombre":"Sensor 1",
-        "Tipo": "Temperatura",
-        "Timestamp": "1663745813.560462",
-        "Mesura": "24,3"
+      " "
     }
     return diccionari
 
 def on_message(client, userdata, message):
    JSON_rebut = str(message.payload.decode("utf-8"))
-   diccionari = convert_to_dict(JSON_rebut)
-   print(f"Rebut `{diccionari}` del topic `{message.topic}`")
+   sensors = convert_to_dict(JSON_rebut)
+   q.put(sensors)
+   
+   #print(f"Rebut `{sensors}` del topic `{message.topic}`")
+   

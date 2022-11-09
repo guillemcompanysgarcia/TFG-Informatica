@@ -1,20 +1,68 @@
-import minimalmodbus
+#!/usr/bin/env python3
+# pip install  pymodbus
+# pip install pyserial-asyncio
+#import sys
+#import time
+#import logging
 
-instrument = minimalmodbus.Instrument('/dev/ttyUSB1', 1)  # port name, slave address (in decimal)
+from pymodbus.constants import Defaults
+from pymodbus.client import ModbusSerialClient as ModbusClient
 
-temperature = instrument.read_register(289, 1)  # Registernumber, number of decimals
-print(temperature)
+ID_SLAVE_NUMBER = 1
 
+#logging.basicConfig()
+#log = logging.getLogger()
+#log.setLevel(logging.DEBUG)
 
-NEW_TEMPERATURE = 95
-instrument.write_register(24, NEW_TEMPERATURE, 1)  # Registernumber, value, number of decimals for storage
+def setup():
+    return ModbusClient(method='rtu', port="COM5", baudrate=9600, stopbits=1, databits=8, parity='N', timeout=1, bytesize=8)
 
+def Function01(client, address, num_registers):
+    try:
+        result = client.read_coils(address, num_registers, ID_SLAVE_NUMBER) 
+        return result.registers
 
-def setup_sensor(port_name, address):
-    print("Configure Sensor")
+    except Exception as e:
+        print ("Error while reading coil status  ", e)
+        
+def Function02(client, address, num_registers):
+    try:
+        result = client.read_discrete_inputs(address, num_registers, ID_SLAVE_NUMBER) 
+        return result.registers
+
+    except Exception as e:
+        print ("Error while reading input status  ", e)
+        
+def Function03(client, address, num_registers):
+    try:
+        result = client.read_holding_registers(address, num_registers, ID_SLAVE_NUMBER) 
+        return result.registers
+
+    except Exception as e:
+        print ("Error while reading holding registers  ", e)
+        
+def Function04(client, address, num_registers):
+    try:
+        result = client.read_input_registers(address, num_registers, ID_SLAVE_NUMBER) 
+        return result.registers
+
+    except Exception as e:
+        print ("Error while reading input registers  ", e)
+        
+def Function05(client, address, value):
+    try:
+        result = client.write_coil(address, value, ID_SLAVE_NUMBER) 
+        return result.registers
+
+    except Exception as e:
+        print ("Error while forcing a single coil  ", e)
+        
+def Function16(client, address, values):
+    try:
+        result = client.write_registers(address, values, ID_SLAVE_NUMBER) 
+        return result.registers
+
+    except Exception as e:
+        print ("Error while presseting multiple registers  ", e)
     
-def read_sensor(sensor, register_number, decimals_number):
-    print("Read Sensor")
 
-def  calibrate_sensor():
-    print("Calibrate Sensor")

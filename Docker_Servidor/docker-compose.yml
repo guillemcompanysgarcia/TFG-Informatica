@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+     
+  influxdb:
+    container_name: "InfluxDB"
+    image: influxdb:latest
+    volumes:
+      - influxdb-storage:/var/lib/influxdb2:rw
+    env_file:
+      - .env
+    entrypoint: ["./entrypoint.sh"]
+    restart: on-failure:10
+    ports:
+      - ${DOCKER_INFLUXDB_INIT_PORT}:8086
+
+  grafana:
+    container_name: "Grafana"
+    image: grafana/grafana-oss:latest
+    volumes:
+      - grafana-storage:/var/lib/grafana:rw
+    depends_on:
+      - influxdb
+    ports:
+      - ${GRAFANA_PORT}:3000
+    environment:
+      GF_RENDERING_SERVER_URL: http://renderer:8081/render
+      GF_RENDERING_CALLBACK_URL: http://grafana:3000/
+      GF_LOG_FILTERS: rendering:debug
+  
+  renderer:
+    image: grafana/grafana-image-renderer:latest
+    ports:
+      - 8081
+         
+  web:
+    container_name: "WebApp"
+    build: .
+    ports:
+     - "5000:5000"
+    volumes:
+     - .:/code
+    depends_on:
+     - influxdb
+     
+  mosquitto:
+    container_name: "MQTT"
+    image: eclipse-mosquitto:latest
+    restart: unless-stopped
+    ports:
+        - 1883:1883
+    volumes:
+        - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:rw
+
+volumes:
+  grafana-storage:
+  influxdb-storage:

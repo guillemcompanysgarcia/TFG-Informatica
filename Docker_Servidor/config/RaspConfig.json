@@ -1,0 +1,1 @@
+[{"nombre":"Sensor 1","tipodesensor":"Temperatura","intervalodetiempo":"Cada hora","funciónmodbuslectura":"Function 02 (Read Input Status)","dirección":"06","nºregistros":"1","comentarios":""}]

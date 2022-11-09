@@ -1,0 +1,31 @@
+from flask import Flask, render_template, request, redirect
+import json
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+  return render_template('index.html', data = read_Sensors())
+
+
+@app.route('/download/<string:table>', methods = ['POST'])
+def download(table):
+  with open("config/RaspConfig.json", "w") as fo:
+    fo.write(table)
+    fo.close()
+  return ('/')
+
+@app.route('/remove', methods = ['GET'])
+def remove():
+  with open("config/RaspConfig.json", "w") as fo:
+    fo.write("[]")
+    fo.close()
+  return ('/')
+
+def read_Sensors():
+    f = open("config/RaspConfig.json","r")
+    return  json.load(f)
+
+
+if __name__ == '__main__':
+  app.run(host = '0.0.0.0', debug=True)

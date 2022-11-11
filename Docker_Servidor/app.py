@@ -5,25 +5,28 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-  return render_template('index.html', data = read_Sensors())
+  return render_template('index.html')
 
-
+@app.route('/config', methods=['GET', 'POST'])
+def config():
+  return render_template('config.html',  data = read_Sensors())
+  
 @app.route('/download/<string:table>', methods = ['POST'])
 def download(table):
-  with open("config/RaspConfig.json", "w") as fo:
+  with open("Docker_Servidor\config\RaspConfig.json", "w") as fo:
     fo.write(table)
     fo.close()
   return ('/')
 
 @app.route('/remove', methods = ['GET'])
 def remove():
-  with open("config/RaspConfig.json", "w") as fo:
+  with open("Docker_Servidor\config\RaspConfig.json", "w") as fo:
     fo.write("[]")
     fo.close()
   return ('/')
 
 def read_Sensors():
-    f = open("config/RaspConfig.json","r")
+    f = open("Docker_Servidor\config\RaspConfig.json","r")
     return  json.load(f)
 
 

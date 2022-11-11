@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPQ</title>
+    <link rel="stylesheet" href="static\index.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="static\script.js"></script>
+    <script> 
+        let string_sensors = '{{ data }}';
+    </script>
+
+</head>
+<body>
+    <img src="{{url_for('static', filename='logo.png')}}" />
+<h1> Configuración del SIMPQ</h1>
+    <div class="container" id="main">
+    
+        <h2>Añadir Sensor</h2>
+        <div id="data">
+            <form onsubmit="addRow(); reset();return false"> 
+                <input type="text" id="name" placeholder="Introducir Nombre" required>
+                <select name="Type" id="type" required>
+                    <option value="" disabled selected hidden>Tipo de Sensor</option>
+                    <option>Temperatura</option>
+                    <option>Presión</option>
+                    <option>Conductancia</option>
+                    <option>pH</option>
+                    <option>Otro</option>
+                </select>
+    
+                <select name="Interval" id="interval" required>
+                    <option value="" disabled selected hidden>Intervalo de Tiempo</option>
+                    <option>Cada minuto</option>
+                    <option>Cada hora</option>
+                    <option>Una vez al día</option>
+                    <option>Una vez a la semana</option>
+                </select>
+                <select name="Modbusfunc" id="modbusfunc" required onchange="load_addresses(this)">
+                    <option value="" disabled selected hidden>Función Modbus Lectura</option>
+                </select>
+
+                <select name="Address" id="address" required>
+                    <option value="" disabled selected hidden>Dirección</option>
+                </select>
+
+                <input disabled type="number" min="1" max="10" id="number" placeholder="Nº Registros" required>
+
+                <input type="text" id="comments" placeholder="Observaciones">
+                <button id="addbutton">Añadir</button>
+            </form>
+        </div>
+        <p> ADVERTENCIA: Después de añadir o eliminar un sensor es necesario guardar los cambios realizados. En caso negativo, los cambios no tendrán efecto. </p>
+    </div>    
+</body>
+<script>
+    window.onload = Update_Table(unEscape(string_sensors));
+    window.onload = function () {
+    const FuncioModbus = document.querySelector("#modbusfunc");
+    const Address = document.querySelector("#address");
+    Address.disabled = true;
+
+
+    for (let modopt in adressesbyfunction) {
+    FuncioModbus.options[FuncioModbus.options.length] = new Option(
+      modopt,
+      modopt
+    );
+  }
+}
+</script>
+</html>
+
+<!doctype html>

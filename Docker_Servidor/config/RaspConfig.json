@@ -1,1 +1,1 @@
-[{"nombre":"Sensor 1","tipodesensor":"Temperatura","intervalodetiempo":"Cada hora","funciÃ³nmodbuslectura":"Function 02 (Read Input Status)","direcciÃ³n":"06","nÂºregistros":"1","comentarios":""}]
+[{"nombre":"Hola","tipodesensor":"Conductancia","intervalodetiempo":"Cada hora","funciónmodbuslectura":"Function 03 (Read Holding Registers)","dirección":"12","nºregistros":"1","comentarios":""}]

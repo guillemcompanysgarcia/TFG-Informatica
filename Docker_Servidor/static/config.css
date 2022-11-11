@@ -1,0 +1,66 @@
+body {
+  background-color: #e5f0f5;
+  font-family: 'Roboto';
+  
+}
+
+.container {
+  margin: auto;
+  width: 95%;
+  padding: 10px;
+  background-color: white;
+  border: 3px solid rgb(33, 148, 177);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+#maindiv{
+  margin: auto;
+  width: 90%;
+  padding: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #666;
+}
+
+#sendbutton{
+  margin-top: 20px;
+  padding: 10px;
+  width: 100px;
+}
+
+th,td {
+  border: 1px solid black;
+  padding: 10px;
+  max-width: 300px;
+  white-space: -moz-pre-wrap !important;  
+  white-space: -pre-wrap;      
+  white-space: -o-pre-wrap;    
+  white-space: pre-wrap;       
+  word-wrap: break-word;       
+  white-space: normal;
+}
+
+
+#data {
+  margin-bottom: 10px;
+}
+#data button {
+  padding: 10px;
+  width: 90px;
+}
+#data input, select {
+  padding: 10px;
+  font-family: 'Roboto';
+  text-align: left;
+  min-width: 100px;
+}
+h1,h2{
+  text-align: center;
+  color: #4863bb;
+  text-transform: uppercase;
+}

@@ -29,9 +29,12 @@ services:
       GF_LOG_FILTERS: rendering:debug
   
   renderer:
+    container_name: "Grafana-Renderer"
     image: grafana/grafana-image-renderer:latest
     ports:
       - 8081
+    depends_on:
+      - grafana
          
   web:
     container_name: "WebApp"
@@ -40,9 +43,20 @@ services:
      - "5000:5000"
     volumes:
      - .:/code
-    depends_on:
-     - influxdb
-     
+
+  node_RED:
+    container_name: "Node-RED"
+    image: nodered/node-red:latest
+    environment:
+      - TZ=Europe/Brussels
+    ports:
+      - "1880:1880"
+    networks:
+      - node-red-net
+    volumes:
+      - node-red-data:/data
+    
+    
   mosquitto:
     container_name: "MQTT"
     image: eclipse-mosquitto:latest
@@ -55,3 +69,7 @@ services:
 volumes:
   grafana-storage:
   influxdb-storage:
+  node-red-data:
+
+networks:
+  node-red-net:

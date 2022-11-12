@@ -13,20 +13,20 @@ def config():
   
 @app.route('/download/<string:table>', methods = ['POST'])
 def download(table):
-  with open("Docker_Servidor\config\RaspConfig.json", "w") as fo:
+  with open("config/RaspConfig.json", "w") as fo:
     fo.write(table)
     fo.close()
   return ('/')
 
 @app.route('/remove', methods = ['GET'])
 def remove():
-  with open("Docker_Servidor\config\RaspConfig.json", "w") as fo:
+  with open("config/RaspConfig.json", "w") as fo:
     fo.write("[]")
     fo.close()
   return ('/')
 
 def read_Sensors():
-    f = open("Docker_Servidor\config\RaspConfig.json","r")
+    f = open("config/RaspConfig.json","r")
     return  json.load(f)
 
 

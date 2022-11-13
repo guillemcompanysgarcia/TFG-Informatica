@@ -51,8 +51,6 @@ services:
       - TZ=Europe/Brussels
     ports:
       - "1880:1880"
-    networks:
-      - node-red-net
     volumes:
       - node-red-data:/data
     

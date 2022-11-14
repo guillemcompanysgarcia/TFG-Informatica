@@ -32,7 +32,7 @@ h1,h2{
   padding-right: 7%;
 }
 
-a.button1{
+#main a.button1{
   display:inline-block;
   padding:0.35em 1.2em;
   border:0.1em solid #ffffff;
@@ -46,10 +46,32 @@ a.button1{
   text-align:center;
   transition: all 0.2s;
   }
+  
+  a.button1{
+  display:inline-block;
+  padding:0.35em 1.2em;
+  border:0.1em solid #e5f0f5;
+  margin:0 0.3em 0.3em 0;
+  border-radius:0.3em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:#000000;
+  text-align:center;
+  transition: all 0.2s;
+  }
+  
+  #main a.button1:hover{
+  color:#FFFFFF;
+  background-color:#4863bb;
+  }
+  
   a.button1:hover{
   color:#FFFFFF;
   background-color:#4863bb;
   }
+  
   @media all and (max-width:30em){
     a.button1{
     display:block;

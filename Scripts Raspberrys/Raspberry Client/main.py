@@ -32,8 +32,8 @@ def main():
                    llista_sensors = Control.load_sensors(new_sensors_config)
                    current_sensor_config = new_sensors_config
                    print("New Config of the System: ",new_sensors_config)
-        #message = MQTT.prepare_data()
-        #MQTT.publish(MQTT_client,MQTT.publish_topic,message)
+    #message = MQTT.prepare_data()
+    #MQTT.publish(MQTT_client,MQTT.publish_topic,message)
         time.sleep(interval)
     
 if __name__ == '__main__':

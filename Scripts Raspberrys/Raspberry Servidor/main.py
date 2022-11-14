@@ -12,10 +12,12 @@ def main():
     MQTT_client = MQTT.connect()
     MQTT_client.subscribe(MQTT.subscribe_topic)
     MQTT_client.loop_start()
-    message = MQTT.prepare_data()
+    current_sensor_config = ' '
+    new_sensors_config = MQTT.prepare_data()
     while True:
-        if message != "[]":
-            MQTT.publish(MQTT_client,MQTT.publish_topic,message)
+        if new_sensors_config != "[]" and new_sensors_config != current_sensor_config:
+            MQTT.publish(MQTT_client,MQTT.publish_topic,new_sensors_config)
+            current_sensor_config = new_sensors_config
             time.sleep(interval)
     '''while True:
         MQTT.publish(MQTT_client,MQTT.publish_topic,message)

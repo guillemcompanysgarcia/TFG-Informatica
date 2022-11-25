@@ -32,7 +32,7 @@ services:
     container_name: "Grafana-Renderer"
     image: grafana/grafana-image-renderer:latest
     ports:
-      - 8081
+      - 8081:8081
     depends_on:
       - grafana
          

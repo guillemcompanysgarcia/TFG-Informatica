@@ -5,14 +5,9 @@
 #import time
 #import logging
 
-from pymodbus.constants import Defaults
 from pymodbus.client import ModbusSerialClient as ModbusClient
 
 ID_SLAVE_NUMBER = 1
-
-#logging.basicConfig()
-#log = logging.getLogger()
-#log.setLevel(logging.DEBUG)
 
 def setup():
     return ModbusClient(method='rtu', port="COM5", baudrate=9600, stopbits=1, databits=8, parity='N', timeout=1, bytesize=8)

@@ -4,7 +4,6 @@ import configparser
 from queue import Queue
 #import Control_library as Control
 
-interval= 5
 q = Queue()
 
 def setup():
@@ -66,6 +65,5 @@ def on_message(client, userdata, message):
    JSON_rebut = str(message.payload.decode("utf-8"))
    sensors = convert_to_dict(JSON_rebut)
    q.put(sensors)
-   
    #print(f"Rebut `{sensors}` del topic `{message.topic}`")
    

@@ -10,7 +10,23 @@ class Sensor():
         self.address = sensor_info['dirección']
         self.register_count = sensor_info['nºregistros']
         self.comments= sensor_info['comentarios']
+        self.next_timer = 0
         
     
     def add_Timer(self, timer):
         self.next_timer = timer
+
+    def check_Name(self):
+        return self.name
+
+    def check_Timer(self):
+        return self.next_timer
+    
+    def check_Modbusfunction(self):
+        return self.modbus_function
+
+    def check_Address(self):
+        return self.address
+
+    def check_Registercount(self):
+        return self.register_count

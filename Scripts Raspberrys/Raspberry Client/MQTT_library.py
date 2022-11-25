@@ -59,7 +59,7 @@ def get_data_from_sensors(diccionari):
     diccionari={
       " "
     }
-    return diccionari
+    return diccionari 
 
 def on_message(client, userdata, message):
    JSON_rebut = str(message.payload.decode("utf-8"))

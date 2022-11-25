@@ -7,8 +7,8 @@ class Sensor():
         self.type = sensor_info['tipodesensor']
         self.time_interval = sensor_info['intervalodetiempo']
         self.modbus_function = sensor_info['funciónmodbuslectura']
-        self.address = sensor_info['dirección']
-        self.register_count = sensor_info['nºregistros']
+        self.address = int(sensor_info['dirección'])
+        self.register_count = int(sensor_info['nºregistros'])
         self.comments= sensor_info['comentarios']
         self.next_timer = 0
         
@@ -19,6 +19,9 @@ class Sensor():
     def check_Name(self):
         return self.name
 
+    def check_timeinterval(self):
+        return self.time_interval
+    
     def check_Timer(self):
         return self.next_timer
     

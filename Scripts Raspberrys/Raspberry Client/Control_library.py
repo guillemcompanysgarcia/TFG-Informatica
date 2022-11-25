@@ -35,7 +35,7 @@ def calculate_timer(time_interval):
 def configure_timers(llista_sensors):
     llista_timers = list()
     for sensor in llista_sensors:
-        time_interval = sensor.time_interval
+        time_interval = sensor.check_timeinterval()
         llista_timers.append(calculate_timer(time_interval))
     
     return llista_timers
@@ -62,18 +62,18 @@ def read_sensor(Modbus_Client, sensor):
     func = calculate_ModbusFunc(sensor.check_Modbusfunction())
     result = 0
     try:
-        if func == "1":
-            result = MODBUS.Function01(Modbus_Client, sensor.check_Address, sensor.check_Registercount)
-        if func == "2":
-            result = MODBUS.Function02(Modbus_Client, sensor.check_Address, sensor.check_Registercount)
-        if func == "3":
-            result = MODBUS.Function03(Modbus_Client, sensor.check_Address, sensor.check_Registercount)
-        if func == "4":
-            result = MODBUS.Function04(Modbus_Client, sensor.check_Address, sensor.check_Registercount)
-        if func == "5":
-            result = MODBUS.Function05(Modbus_Client, sensor.check_Address, sensor.check_Registercount)
-        if func == "16":
-            result = MODBUS.Function16(Modbus_Client, sensor.check_Address, sensor.check_Registercount)
+        if func == 1:
+            result = MODBUS.Function01(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+        if func == 2:
+            result = MODBUS.Function02(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+        if func == 3:
+            result = MODBUS.Function03(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+        if func == 4:
+            result = MODBUS.Function04(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+        if func == 5:
+            result = MODBUS.Function05(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+        if func == 16:
+            result = MODBUS.Function16(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
 
     except Exception as e:
         print("Error reading sensor ", sensor.check_Name(), e )

@@ -31,7 +31,7 @@ def Function02(client, address, num_registers):
 def Function03(client, address, num_registers):
     try:
         result = client.read_holding_registers(address, num_registers, ID_SLAVE_NUMBER) 
-        return result.registers
+        return (hex(result.registers[0])+ hex(result.registers[1])) #out 0x35300x3850
 
     except Exception as e:
         print ("Error while reading holding registers  ", e)

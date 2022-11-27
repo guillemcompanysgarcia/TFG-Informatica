@@ -6,7 +6,8 @@ import MQTT_library as MQTT
 #import INFLUXDB_library as INFLUXDB
 
 interval= 5
-
+def setup():
+    
 def main():
     MQTT.setup()
     client = MQTT.connect()

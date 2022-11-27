@@ -1,10 +1,9 @@
 import paho.mqtt.client as mqtt 
 import json
 import configparser
+from queue import Queue
 
-
-interval= 5
-
+q = Queue()
 
 def setup():
     config_obj = configparser.ConfigParser()
@@ -17,6 +16,12 @@ def setup():
     broker_address = MQTT_config["broker_address"]
     publish_topic = MQTT_config["publish_topic"]
     subscribe_topic = MQTT_config["subscribe_topic"]
+    
+    MQTT_client = connect()
+    MQTT_client.subscribe(subscribe_topic)
+    MQTT_client.loop_start()
+        
+    return MQTT_client, publish_topic
     
 def connect():
     client = mqtt.Client(device)
@@ -56,5 +61,6 @@ def get_data_from_web(diccionari):
 
 def on_message(client, userdata, message):
    JSON_rebut = str(message.payload.decode("utf-8"))
-   diccionari = convert_to_dict(JSON_rebut)
-   print(f"Rebut `{diccionari}` del topic `{message.topic}`")
+   mesura_sensors = convert_to_dict(JSON_rebut)
+   q.put(mesura_sensors)
+   #print(f"Rebut `{diccionari}` del topic `{message.topic}`")

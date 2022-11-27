@@ -1,83 +1,51 @@
 from datetime import datetime, timedelta
-
-
 from Sensor_class import Sensor
+
 import MODBUS_library as MODBUS
+import MQTT_library as MQTT
 
 def load_sensors(config_sensors):
     llista_sensors = list()
     for sensor in config_sensors:
         llista_sensors.append(Sensor(sensor))
         
-    llista_timers = configure_timers(llista_sensors)
-    
-    for sensor, timer in zip(llista_sensors,llista_timers):
-        sensor.add_Timer(timer)
         
     return llista_sensors
 
 
-def calculate_timer(time_interval):
-    timer = datetime.now()
-    
-
-    if time_interval == "Cada minuto":
-        timer = timer + timedelta(minutes=1)
-    if time_interval == "Cada hora":
-        timer = timer + timedelta(hours=1)
-    if time_interval == "Una vez al día":
-        timer = timer + timedelta(days=1)
-    if time_interval == "Una vez a la semana":
-        timer = timer + timedelta(weeks=1)
-    return timer
-        
-    
-def configure_timers(llista_sensors):
-    llista_timers = list()
-    for sensor in llista_sensors:
-        time_interval = sensor.check_timeinterval()
-        llista_timers.append(calculate_timer(time_interval))
-    
-    return llista_timers
-
-def calculate_ModbusFunc(func):   
-    func_num = 0
-    if func == "Function 01 (Read Coil Status)":
-        func_num = 1
-    if func == "Function 02 (Read Input Status)":
-        func_num = 2
-    if func == "Function 03 (Read Holding Registers)":
-        func_num = 3
-    if func == "Function 04 (Read Input Registers)":
-        func_num = 4
-    if func == "Function 05 (Force Single Coil)":
-        func_num = 5
-    if func == "Function 16 (Preset Multiple Registers)":
-        func_num = 16
-    
-    return func_num
-
-
-def read_sensor(Modbus_Client, sensor):
-    func = calculate_ModbusFunc(sensor.check_Modbusfunction())
+#def read_sensor(sensor, s, Modbus_Client, MQTT_Client, topic):
+def read_sensor(sensor, s):
     result = 0
+    func = sensor.check_Modbusfunction()
     try:
         if func == 1:
-            result = MODBUS.Function01(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            #result = MODBUS.Function01(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            result = 1
         if func == 2:
-            result = MODBUS.Function02(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            #result = MODBUS.Function02(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            result = 2
         if func == 3:
-            result = MODBUS.Function03(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            #result = MODBUS.Function03(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            result = 3
         if func == 4:
-            result = MODBUS.Function04(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            #result = MODBUS.Function04(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            result = 4
         if func == 5:
-            result = MODBUS.Function05(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            #result = MODBUS.Function05(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            result = 5
         if func == 16:
-            result = MODBUS.Function16(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            #result = MODBUS.Function16(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            result = 16
 
     except Exception as e:
         print("Error reading sensor ", sensor.check_Name(), e )
     
-    #New timers
-    sensor = configure_timers(sensor)
-    return sensor, result
+    print("Mesura feta "+ sensor.check_Name())
+    #Refresh timer
+    sensor.refresh_timer()
+   # s.enter((sensor.check_Timer()-datetime.now()).seconds, 1, read_sensor, argument = (sensor, s, Modbus_Client))
+    s.enter((sensor.check_Timer()-datetime.now()).seconds, 1, read_sensor, argument = (sensor, s))
+    
+    #send message via mqqtt
+    #message = MQTT.prepare_data(sensor, result)
+    #MQTT.publish(MQTT_Client, topic, message)

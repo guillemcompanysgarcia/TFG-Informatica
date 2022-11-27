@@ -24,7 +24,6 @@
                 <select name="Type" id="type" required>
                     <option value="" disabled selected hidden>Tipo de Sensor</option>
                     <option>Temperatura</option>
-                    <option>Presión</option>
                     <option>Conductancia</option>
                     <option>pH</option>
                     <option>Otro</option>
@@ -33,9 +32,9 @@
                 <select name="Interval" id="interval" required>
                     <option value="" disabled selected hidden>Intervalo de Tiempo</option>
                     <option>Cada minuto</option>
+                    <option>Cada 15 minutos</option>
+                    <option>Cada 30 minutos</option>
                     <option>Cada hora</option>
-                    <option>Una vez al día</option>
-                    <option>Una vez a la semana</option>
                 </select>
                 <select name="Modbusfunc" id="modbusfunc" required onchange="load_addresses(this)">
                     <option value="" disabled selected hidden>Función Modbus Lectura</option>

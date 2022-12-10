@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*- 
 from datetime import datetime
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
@@ -18,6 +19,6 @@ client = InfluxDBClient(url=url, token=token, org=org)
 write_api = client.write_api(write_options=SYNCHRONOUS)
     
 def write_point(data):
-	point = Point(data["nombre"]).tag("Tipo", data["tipodesensor"]).field("Valor", data["measure"]).time(datetime.utcnow(), WritePrecision.S)
+	point = Point(data["nombre"]).tag("Tipo", data["tipodesensor"]).field("Valor", float(data["measure"])).time(datetime.utcnow(), WritePrecision.S)
 	write_api.write(bucket, org, point)
 	time.sleep(1)

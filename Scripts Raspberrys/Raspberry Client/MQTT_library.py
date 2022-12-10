@@ -35,7 +35,7 @@ def connect():
     return client
 
 def publish(client, topic, message):
-    status = client.publish(topic, message,1)
+    status = client.publish(topic, message,2)
     if status[0] == 0:
         print(f"Enviant `{message}` al topic `{topic}`")
     else:

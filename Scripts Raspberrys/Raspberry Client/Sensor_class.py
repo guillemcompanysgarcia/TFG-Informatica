@@ -56,6 +56,8 @@ class Sensor():
         return func_num
      
     def calculate_timer(self, timer):
+        if self.time_interval == "Cada 10 segundos":
+            timer = timer + timedelta(seconds=10)
         if self.time_interval == "Cada minuto":
             timer = timer + timedelta(minutes=1)
         if self.time_interval == "Cada 15 minutos":

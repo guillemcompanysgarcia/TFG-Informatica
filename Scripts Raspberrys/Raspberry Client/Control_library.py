@@ -13,8 +13,8 @@ def load_sensors(config_sensors):
     return llista_sensors
 
 
-#def read_sensor(sensor, s, Modbus_Client, MQTT_Client, topic):
-def read_sensor(sensor, s):
+def read_sensor(sensor, s, Modbus_Client, MQTT_Client, topic):
+#def read_sensor(sensor, s):
     result = 0
     func = sensor.check_Modbusfunction()
     try:
@@ -28,8 +28,8 @@ def read_sensor(sensor, s):
             #result = MODBUS.Function03(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
             result = 3
         if func == 4:
-            #result = MODBUS.Function04(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
-            result = 4
+            result = MODBUS.Function04(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
+            
         if func == 5:
             #result = MODBUS.Function05(Modbus_Client, sensor.check_Address(), sensor.check_Registercount())
             result = 5
@@ -44,8 +44,8 @@ def read_sensor(sensor, s):
     #Refresh timer
     sensor.refresh_timer()
    # s.enter((sensor.check_Timer()-datetime.now()).seconds, 1, read_sensor, argument = (sensor, s, Modbus_Client))
-    s.enter((sensor.check_Timer()-datetime.now()).seconds, 1, read_sensor, argument = (sensor, s))
+    s.enter((sensor.check_Timer()-datetime.now()).seconds, 1, read_sensor, argument = (sensor, s, Modbus_Client, MQTT_Client, topic))
     
     #send message via mqqtt
-    #message = MQTT.prepare_data(sensor, result)
-    #MQTT.publish(MQTT_Client, topic, message)
+    message = MQTT.prepare_data(sensor, result)
+    MQTT.publish(MQTT_Client, topic, message)

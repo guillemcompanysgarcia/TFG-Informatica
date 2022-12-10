@@ -7,10 +7,12 @@
 
 from pymodbus.client import ModbusSerialClient as ModbusClient
 
+import struct 
+
 ID_SLAVE_NUMBER = 1
 
 def setup():
-    return ModbusClient(method='rtu', port="COM5", baudrate=9600, stopbits=1, databits=8, parity='N', timeout=1, bytesize=8)
+    return ModbusClient(method='rtu', port="/dev/ttyUSB0", baudrate=9600, stopbits=1, databits=8, parity='N', timeout=1, bytesize=8)
 
 def Function01(client, address, num_registers):
     try:
@@ -38,8 +40,9 @@ def Function03(client, address, num_registers):
         
 def Function04(client, address, num_registers):
     try:
-        result = client.read_input_registers(address, num_registers, ID_SLAVE_NUMBER) 
-        return result.registers
+        result = client.read_input_registers(address, num_registers, ID_SLAVE_NUMBER)
+        resultat = hex(result.registers[0]) + hex(result.registers[1]).split('x')[1]
+        return hex_to_float(resultat)
 
     except Exception as e:
         print ("Error while reading input registers  ", e)
@@ -59,5 +62,7 @@ def Function16(client, address, values):
 
     except Exception as e:
         print ("Error while presseting multiple registers  ", e)
-    
+
+def hex_to_float(hexa):
+    return struct.unpack('!f',struct.pack('!I', int(hexa, 16)))[0]
 

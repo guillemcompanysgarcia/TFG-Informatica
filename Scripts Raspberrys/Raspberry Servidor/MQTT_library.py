@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import paho.mqtt.client as mqtt 
 import json
 import configparser
@@ -33,7 +34,7 @@ def connect():
     return client
 
 def publish(client, topic, message):
-    status = client.publish(topic, message,1)
+    status = client.publish(topic, message,2)
     if status[0] == 0:
         print(f"Enviant `{message}` al topic `{topic}`")
     else:
@@ -50,12 +51,12 @@ def convert_to_dict(JSON):
 
 def prepare_data():
     diccionari=dict()
-    diccionari=get_data_from_web(diccionari)
+    diccionari=get_data_from_file(diccionari)
     JSON_a_enviar = convert_to_JSON(diccionari)
     return str(JSON_a_enviar)
 
-def get_data_from_web(diccionari):
-    f = open("./config/RaspConfig.json","r")
+def get_data_from_file(diccionari):
+    f = open("/home/servidor/Desktop/TFG/Docker_Servidor/config/RaspConfig.json","r")
     diccionari =json.load(f)
     return diccionari
 

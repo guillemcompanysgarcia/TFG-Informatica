@@ -30,7 +30,7 @@ services:
   
   renderer:
     container_name: "Grafana-Renderer"
-    image: grafana/grafana-image-renderer:latest
+    image: adejong/grafana-image-renderer-pi:1.0.8-beta2
     ports:
       - 8081:8081
     depends_on:
@@ -71,3 +71,4 @@ volumes:
 
 networks:
   node-red-net:
+

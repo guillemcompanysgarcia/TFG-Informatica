@@ -1,1 +1,1 @@
-[]
+[{"nombre":"Sensor 1","tipodesensor":"pH","intervalodetiempo":"Cada 10 segundos","funciónmodbuslectura":"Function 04 (Read Input Registers)","dirección":"00","nºregistros":"2","comentarios":""},{"nombre":"Sensor 2","tipodesensor":"Conductancia","intervalodetiempo":"Cada 10 segundos","funciónmodbuslectura":"Function 04 (Read Input Registers)","dirección":"02","nºregistros":"2","comentarios":""}]

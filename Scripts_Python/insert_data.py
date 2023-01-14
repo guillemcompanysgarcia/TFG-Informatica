@@ -7,10 +7,10 @@ import random as r
 from threading import Thread
 
 def task0():
-	token = "78c0610d6f9c5a6276ee70550e3386c4"
+	token = "xxx"
 	org = "Chemplate"
 	bucket = "Sensors"
-	client = InfluxDBClient(url="http://localhost:8086", token=token, org=org)
+	client = InfluxDBClient(url="http://xxx", token=token, org=org)
 	write_api = client.write_api(write_options=SYNCHRONOUS)
 	for l in range (10000):
 		for j in range(3):#Cubell j
@@ -25,7 +25,7 @@ def task0():
 	print("Fi thread 0")
 
 def task1():
-	token = "78c0610d6f9c5a6276ee70550e3386c4"
+	token = "xxx"
 	org = "Chemplate"
 	bucket = "Sensors"
 	client = InfluxDBClient(url="http://localhost:8086", token=token, org=org)
@@ -43,7 +43,7 @@ def task1():
 	print("Fi thread 1")
 	
 def task2():
-	token = "78c0610d6f9c5a6276ee70550e3386c4"
+	token = "xxx"
 	org = "Chemplate"
 	bucket = "Sensors"
 	client = InfluxDBClient(url="http://localhost:8086", token=token, org=org)

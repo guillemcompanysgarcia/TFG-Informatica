@@ -5,10 +5,10 @@ import time
 
 
 #a canviar. passar .env per paràmetre i recuperar-ho
-token = "78c0610d6f9c5a6276ee70550e3386c4"
+token = "xxx"
 org = "Chemplate"
 bucket = "Localització Sensors"
-client = InfluxDBClient(url="http://localhost:8086", token=token, org=org)
+client = InfluxDBClient(url="http://xxx", token=token, org=org)
 buckets_api = client.buckets_api()
 query_api = client.query_api()
 

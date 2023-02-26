@@ -1,2 +1,0 @@
-@reboot cd /root/go/bin && ./grafana-reporter -ip localhost:3000
-@reboot cd /home/guillem/Escritorio/TFG/Docker_Servidor && docker-compose up --build

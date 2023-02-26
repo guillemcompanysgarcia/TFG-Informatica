@@ -6,10 +6,10 @@ from email import encoders
  
 body = '''Informe Generat Automàticament amb Grafana.
 '''
-sender = 'g.garcia.companys@gmail.com'
-password = 'cnryvisghairacmj'
+sender = 'xxx'
+password = 'xxx'
 
-receiver = 'g.garcia.companys@gmail.com'
+receiver = 'xxx'
  
 #Setup the MIME
 message = MIMEMultipart()
